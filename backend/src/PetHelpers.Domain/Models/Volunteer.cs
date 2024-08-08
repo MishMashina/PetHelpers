@@ -2,6 +2,12 @@
 
 public class Volunteer
 {
+    public const int MAX_PHONE_NUMBER_LENGTH = 15;
+    
+    public const int MAX_FULL_NAME_LENGTH = 100;
+    
+    public const int MAX_DESCRIPTION_LENGTH = 1000;
+    
     public Guid Id { get; } 
     
     public string FullName { get; }
@@ -23,4 +29,8 @@ public class Volunteer
     public List<Requisite> Requisites  { get; }
 
     public List<Pet> OwnedPets { get; }
+
+    private Volunteer()
+    {
+    }
 }
