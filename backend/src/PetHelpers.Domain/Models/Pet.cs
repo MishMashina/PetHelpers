@@ -16,8 +16,6 @@ public class Pet : Entity
 
     public const int MAX_HEALTH_INFO_LENGTH = 1000;
     
-    public Guid Id { get; }
-    
     public string Name { get; }
     
     public string Species { get; }

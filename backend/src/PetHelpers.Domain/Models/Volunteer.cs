@@ -8,8 +8,6 @@ public class Volunteer : Entity
     
     public const int MAX_DESCRIPTION_LENGTH = 1000;
     
-    public Guid Id { get; } 
-    
     public string FullName { get; }
     
     public string Description { get; }

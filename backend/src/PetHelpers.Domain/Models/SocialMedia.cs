@@ -6,8 +6,6 @@ public class SocialMedia : Entity
     
     public const int MAX_LINK_LENGTH = 500;
     
-    public Guid Id { get; set; }
-    
     public string Title { get; }
     
     public string Link { get; }

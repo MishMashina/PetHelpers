@@ -3,17 +3,39 @@
 public abstract class Entity
 {
     public Guid Id { get; }
+    
+    protected Entity() { }
+
+    protected Entity(Guid id) => Id = id;
 
     public override bool Equals(object? obj)
-        => Equals(obj as Entity);
+    {
+        if (obj is not Entity other)
+            return false;
 
-    private bool Equals(Entity? entity)
-        => entity is not null && Equals(Id, entity.Id);
+        if (ReferenceEquals(this, other) == false)
+            return false;
+
+        if (GetType() != other.GetType())
+            return false;
+
+        return Id == other.Id;
+    }
     
     public override int GetHashCode()
-        => HashCode.Combine(Id);
+        => HashCode.Combine(GetType().ToString() + Id);
 
-    public static bool operator ==(Entity a, Entity b) => a.Equals(b);
+    public static bool operator ==(Entity first, Entity second)
+    {
+        if (ReferenceEquals(first, null) && ReferenceEquals(second, null))
+            return true;
 
-    public static bool operator !=(Entity a, Entity b) => !a.Equals(b);
+        if (ReferenceEquals(first, null) || ReferenceEquals(second, null))
+            return false;
+        
+        return first.Equals(second);
+    }
+
+    public static bool operator !=(Entity first, Entity second) 
+        => !(first == second);
 }
