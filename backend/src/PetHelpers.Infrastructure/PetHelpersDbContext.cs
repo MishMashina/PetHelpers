@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PetHelpers.Domain.Models;
@@ -28,11 +29,7 @@ public class PetHelpersDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new PetConfiguration());
-        modelBuilder.ApplyConfiguration(new PetPhotoConfiguration());
-        modelBuilder.ApplyConfiguration(new RequisiteConfiguration());
-        modelBuilder.ApplyConfiguration(new SocialMediaConfiguration());
-        modelBuilder.ApplyConfiguration(new VolunteerConfiguration());
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     private ILoggerFactory CreateLoggerFactory() => 

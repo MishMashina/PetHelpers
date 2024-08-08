@@ -16,9 +16,7 @@ public class Pet
 
     public const int MAX_HEALTH_INFO_LENGTH = 1000;
     
-    public Guid Id { get; } 
-    
-    public Guid VolunteerId { get; }
+    public Guid Id { get; }
     
     public string Name { get; }
     

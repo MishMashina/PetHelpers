@@ -41,13 +41,16 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
             .Property(v => v.PetsInTreatment)
             .IsRequired();
 
-        builder.HasMany(v => v.SocialMedias);
+        builder
+            .HasMany(v => v.SocialMedias)
+            .WithOne();
 
-        builder.HasMany(v => v.Requisites);
+        builder
+            .HasMany(v => v.Requisites)
+            .WithOne();
 
         builder
             .HasMany(v => v.OwnedPets)
-            .WithOne()
-            .HasForeignKey(p => p.VolunteerId);
+            .WithOne();
     }
 }
