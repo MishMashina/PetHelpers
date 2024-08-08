@@ -1,6 +1,6 @@
 ﻿namespace PetHelpers.Domain.Models;
 
-public class SocialMedia
+public class SocialMedia : Entity
 {
     public const int MAX_TITLE_LENGTH = 50;
     

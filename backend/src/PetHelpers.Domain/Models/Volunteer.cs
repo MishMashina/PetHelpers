@@ -1,6 +1,6 @@
 ﻿namespace PetHelpers.Domain.Models;
 
-public class Volunteer
+public class Volunteer : Entity
 {
     public const int MAX_PHONE_NUMBER_LENGTH = 15;
     
