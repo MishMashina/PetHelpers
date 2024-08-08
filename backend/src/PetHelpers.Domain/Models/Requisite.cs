@@ -1,12 +1,10 @@
 ﻿namespace PetHelpers.Domain.Models;
 
-public class Requisite
+public class Requisite : Entity
 {
     public const int MAX_TITLE_LENGTH = 1000;
     
     public const int MAX_DESCRIPTION_LENGTH = 1000;
-
-    public Guid Id { get; set; }
     
     public string Title { get; }
     

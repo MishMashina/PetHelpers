@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PetHelpers.Infrastructure;
@@ -11,9 +12,11 @@ using PetHelpers.Infrastructure;
 namespace PetHelpers.Infrastructure.Migrations
 {
     [DbContext(typeof(PetHelpersDbContext))]
-    partial class PetHelpersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240808172030_Created base Entity")]
+    partial class CreatedbaseEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,6 +1,6 @@
 ﻿namespace PetHelpers.Domain.Models;
 
-public class Pet
+public class Pet : Entity
 {
     public const int MAX_OWNERS_PHONE_NUMBER_LENGTH = 15;
     
@@ -15,8 +15,6 @@ public class Pet
     public const int MAX_DESCRIPTION_LENGTH = 1000;
 
     public const int MAX_HEALTH_INFO_LENGTH = 1000;
-    
-    public Guid Id { get; }
     
     public string Name { get; }
     

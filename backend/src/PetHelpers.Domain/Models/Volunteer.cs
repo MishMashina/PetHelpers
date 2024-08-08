@@ -1,14 +1,12 @@
 ﻿namespace PetHelpers.Domain.Models;
 
-public class Volunteer
+public class Volunteer : Entity
 {
     public const int MAX_PHONE_NUMBER_LENGTH = 15;
     
     public const int MAX_FULL_NAME_LENGTH = 100;
     
     public const int MAX_DESCRIPTION_LENGTH = 1000;
-    
-    public Guid Id { get; } 
     
     public string FullName { get; }
     
