@@ -4,9 +4,12 @@ public abstract class Entity
 {
     public Guid Id { get; }
 
-    public override bool Equals(object obj)
-        => ReferenceEquals(this, obj) && Id == ((Entity)obj).Id;
+    public override bool Equals(object? obj)
+        => Equals(obj as Entity);
 
+    private bool Equals(Entity? entity)
+        => entity is not null && Equals(Id, entity.Id);
+    
     public override int GetHashCode()
         => HashCode.Combine(Id);
 
