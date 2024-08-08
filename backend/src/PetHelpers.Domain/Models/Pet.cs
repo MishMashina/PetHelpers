@@ -36,5 +36,5 @@ public class Pet
 
     public List<Requisite> Requisites  { get; }
     
-    public List<PetPhoto> Photos { get;  }
+    public List<PetPhoto> Photos { get; }
 }
