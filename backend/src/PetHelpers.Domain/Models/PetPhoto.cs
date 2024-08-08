@@ -4,7 +4,7 @@ public class PetPhoto
 {
     public Guid Id { get; }
 
-    public bool IsMain { get; set; }
+    public bool IsMain { get; }
     
     public string Path { get; }
 }
