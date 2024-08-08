@@ -2,7 +2,9 @@
 
 public class Pet
 {
-    public Guid Id { get; }
+    public Guid Id { get; } 
+    
+    public Guid VolunteerId { get; }
     
     public string Name { get; }
     
@@ -16,23 +18,21 @@ public class Pet
     
     public string Location { get; }
     
+    public string OwnersPhoneNumber { get; }
+    
     public int Weight { get; }
     
     public int Height { get; }
     
-    public string OwnersPhoneNumber { get; }
+    public bool IsCastrated { get; }    
     
-    public bool Castrated { get; }
+    public bool IsVaccinated { get; }
     
-    public DateOnly Birthdate { get; }
+    public DateOnly Birthdate { get; }    
     
-    public bool Vaccinated { get; }
-    
-    public Guid VolunteerId { get; }
+    public DateTime CreationDate { get; } 
     
     public Status HelpStatus { get; }
 
     public List<Requisite> Requisites  { get; }
-    
-    public DateTime CreationDate { get; } 
 }
