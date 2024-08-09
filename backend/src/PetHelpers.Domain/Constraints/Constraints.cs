@@ -16,5 +16,7 @@ public static class Constraints
     
     public const int MAX_PATH_LENGTH = 256;
     
+    public const int MAX_TITLE_LENGTH = 100;
+    
     public const int MAX_PHONE_NUMBER_LENGTH = 15;
 }

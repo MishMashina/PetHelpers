@@ -14,9 +14,11 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
         builder.ComplexProperty(p => p.FullName, b =>
         {
             b.IsRequired();
-            b.Property(p => p.FirstName).HasColumnName("first_name")
+            b.Property(p => p.FirstName)
+                .HasColumnName("first_name")
                 .HasMaxLength(Constraints.MAX_NAME_LENGTH);
-            b.Property(p => p.LastName).HasColumnName("last_name")
+            b.Property(p => p.LastName)
+                .HasColumnName("last_name")
                 .HasMaxLength(Constraints.MAX_NAME_LENGTH);
         });
 
@@ -28,7 +30,9 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
         builder.ComplexProperty(p => p.PhoneNumber, b =>
         {
             b.IsRequired();
-            b.Property(p => p.Number).HasColumnName("phone_number");
+            b.Property(p => p.Number)
+                .HasColumnName("phone_number")
+                .HasMaxLength(Constraints.MAX_PHONE_NUMBER_LENGTH);
         });
 
         builder
