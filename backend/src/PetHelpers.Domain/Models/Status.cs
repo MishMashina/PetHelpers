@@ -1,8 +1,24 @@
-﻿namespace PetHelpers.Domain.Models;
+﻿using CSharpFunctionalExtensions;
 
-public enum Status
+namespace PetHelpers.Domain.Models;
+
+public class Status : ValueObject
 {
-    NeedsHelp,
-    LookingForHome,
-    FoundHome
+    public static readonly Status NeedsHelp = new(nameof(NeedsHelp));
+    public static readonly Status LookingForHome = new(nameof(LookingForHome));
+    public static readonly Status FoundHome = new(nameof(FoundHome));
+
+    private static readonly Status[] _all = [NeedsHelp, LookingForHome, FoundHome];
+    
+    public string Value { get; }
+
+    private Status(string value)
+    {
+        Value = value;
+    }
+
+    protected override IEnumerable<IComparable> GetEqualityComponents()
+    {
+        yield return Value;
+    }
 }

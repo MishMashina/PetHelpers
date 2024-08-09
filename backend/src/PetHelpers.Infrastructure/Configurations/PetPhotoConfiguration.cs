@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PetHelpers.Domain.Constraints;
 using PetHelpers.Domain.Models;
 
 namespace PetHelpers.Infrastructure.Configurations;
@@ -16,7 +17,7 @@ public class PetPhotoConfiguration : IEntityTypeConfiguration<PetPhoto>
         
         builder
             .Property(p => p.Path)
-            .HasMaxLength(PetPhoto.MAX_PATH_LENGTH)
+            .HasMaxLength(Constraints.MAX_PATH_LENGTH)
             .IsRequired();
     }
 }

@@ -1,16 +1,22 @@
-﻿namespace PetHelpers.Domain.Models;
+﻿using CSharpFunctionalExtensions;
 
-public class Requisite : Entity
-{
-    public const int MAX_TITLE_LENGTH = 1000;
-    
-    public const int MAX_DESCRIPTION_LENGTH = 1000;
-    
+namespace PetHelpers.Domain.Models;
+
+public class Requisite : ValueObject
+{ 
     public string Title { get; }
     
     public string Description { get; }
 
-    private Requisite()
+    private Requisite(string title, string description)
     {
+        Title = title;
+        Description = description;
+    }
+
+    protected override IEnumerable<IComparable> GetEqualityComponents()
+    {
+        yield return Title;
+        yield return Description;
     }
 }

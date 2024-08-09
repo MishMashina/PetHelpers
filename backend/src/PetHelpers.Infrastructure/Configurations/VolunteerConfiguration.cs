@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PetHelpers.Domain.Constraints;
 using PetHelpers.Domain.Models;
 
 namespace PetHelpers.Infrastructure.Configurations;
@@ -12,17 +13,17 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
 
         builder
             .Property(v => v.FullName)
-            .HasMaxLength(Volunteer.MAX_FULL_NAME_LENGTH)
+            .HasMaxLength(Constraints.MAX_NAME_LENGTH)
             .IsRequired();
 
         builder
             .Property(v => v.Description)
-            .HasMaxLength(Volunteer.MAX_DESCRIPTION_LENGTH)
+            .HasMaxLength(Constraints.MAX_DESCRIPTION_LENGTH)
             .IsRequired();
 
         builder
             .Property(v => v.PhoneNumber)
-            .HasMaxLength(Volunteer.MAX_PHONE_NUMBER_LENGTH)
+            .HasMaxLength(Constraints.MAX_PHONE_NUMBER_LENGTH)
             .IsRequired();
 
         builder
@@ -40,15 +41,7 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
         builder
             .Property(v => v.PetsInTreatment)
             .IsRequired();
-
-        builder
-            .HasMany(v => v.SocialMedias)
-            .WithOne();
-
-        builder
-            .HasMany(v => v.Requisites)
-            .WithOne();
-
+        
         builder
             .HasMany(v => v.OwnedPets)
             .WithOne();
