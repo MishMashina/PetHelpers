@@ -13,10 +13,6 @@ public class FullName : ValueObject
         LastName = lastName;
     }
     
-    private FullName()
-    {
-    }
-    
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {
         yield return FirstName;

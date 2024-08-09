@@ -14,10 +14,6 @@ public class Requisite : ValueObject
         Description = description;
     }
 
-    private Requisite()
-    {
-    }
-
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {
         yield return Title;

@@ -16,10 +16,6 @@ public class Status : ValueObject
     {
         Value = value;
     }
-    
-    private Status()
-    {
-    }
 
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {

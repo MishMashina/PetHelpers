@@ -11,10 +11,6 @@ public class PhoneNumber : ValueObject
         Number = number;
     }
     
-    private PhoneNumber()
-    {
-    }
-    
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {
         yield return Number;
