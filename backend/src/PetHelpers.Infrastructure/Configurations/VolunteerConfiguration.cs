@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PetHelpers.Domain.Constraints;
 using PetHelpers.Domain.Models;
 
 namespace PetHelpers.Infrastructure.Configurations;
@@ -9,21 +10,26 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
     public void Configure(EntityTypeBuilder<Volunteer> builder)
     {
         builder.HasKey(v => v.Id);
-
-        builder
-            .Property(v => v.FullName)
-            .HasMaxLength(Volunteer.MAX_FULL_NAME_LENGTH)
-            .IsRequired();
+        
+        builder.ComplexProperty(p => p.FullName, b =>
+        {
+            b.IsRequired();
+            b.Property(p => p.FirstName).HasColumnName("first_name")
+                .HasMaxLength(Constraints.MAX_NAME_LENGTH);
+            b.Property(p => p.LastName).HasColumnName("last_name")
+                .HasMaxLength(Constraints.MAX_NAME_LENGTH);
+        });
 
         builder
             .Property(v => v.Description)
-            .HasMaxLength(Volunteer.MAX_DESCRIPTION_LENGTH)
+            .HasMaxLength(Constraints.MAX_DESCRIPTION_LENGTH)
             .IsRequired();
-
-        builder
-            .Property(v => v.PhoneNumber)
-            .HasMaxLength(Volunteer.MAX_PHONE_NUMBER_LENGTH)
-            .IsRequired();
+        
+        builder.ComplexProperty(p => p.PhoneNumber, b =>
+        {
+            b.IsRequired();
+            b.Property(p => p.Number).HasColumnName("phone_number");
+        });
 
         builder
             .Property(v => v.YearsOfExperience)
@@ -41,14 +47,10 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
             .Property(v => v.PetsInTreatment)
             .IsRequired();
 
-        builder
-            .HasMany(v => v.SocialMedias)
-            .WithOne();
-
-        builder
-            .HasMany(v => v.Requisites)
-            .WithOne();
-
+        builder.OwnsMany(v => v.Requisites, b => b.ToJson());
+        
+        builder.OwnsMany(v => v.SocialMedias, b => b.ToJson());
+        
         builder
             .HasMany(v => v.OwnedPets)
             .WithOne();

@@ -1,21 +1,9 @@
-﻿namespace PetHelpers.Domain.Models;
+﻿using CSharpFunctionalExtensions;
 
-public class Pet : Entity
+namespace PetHelpers.Domain.Models;
+
+public class Pet : Entity<Guid>
 {
-    public const int MAX_OWNERS_PHONE_NUMBER_LENGTH = 15;
-    
-    public const int MAX_NAME_LENGTH = 100;
-    
-    public const int MAX_SPECIES_LENGTH = 100;
-    
-    public const int MAX_COLOR_LENGTH = 100;
-    
-    public const int MAX_LOCATION_LENGTH = 300;
-
-    public const int MAX_DESCRIPTION_LENGTH = 1000;
-
-    public const int MAX_HEALTH_INFO_LENGTH = 1000;
-    
     public string Name { get; }
     
     public string Species { get; }
@@ -28,11 +16,11 @@ public class Pet : Entity
     
     public string Location { get; }
     
-    public string OwnersPhoneNumber { get; }
+    public PhoneNumber OwnersPhoneNumber { get; }
     
-    public int Weight { get; }
+    public double Weight { get; }
     
-    public int Height { get; }
+    public double Height { get; }
     
     public bool IsCastrated { get; }    
     

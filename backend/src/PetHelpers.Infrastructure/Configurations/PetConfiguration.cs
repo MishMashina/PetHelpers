@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PetHelpers.Domain.Constraints;
 using PetHelpers.Domain.Models;
 
 namespace PetHelpers.Infrastructure.Configurations;
@@ -12,38 +13,39 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         
         builder
             .Property(p => p.Name)
-            .HasMaxLength(Pet.MAX_NAME_LENGTH)
+            .HasMaxLength(Constraints.MAX_NAME_LENGTH)
             .IsRequired();
         
         builder
             .Property(p => p.Species)
-            .HasMaxLength(Pet.MAX_SPECIES_LENGTH)
+            .HasMaxLength(Constraints.MAX_SPECIES_LENGTH)
             .IsRequired();
         
         builder
             .Property(p => p.Description)
-            .HasMaxLength(Pet.MAX_DESCRIPTION_LENGTH)
+            .HasMaxLength(Constraints.MAX_DESCRIPTION_LENGTH)
             .IsRequired();
         
         builder
             .Property(p => p.Color)
-            .HasMaxLength(Pet.MAX_COLOR_LENGTH)
+            .HasMaxLength(Constraints.MAX_COLOR_LENGTH)
             .IsRequired();
         
         builder
             .Property(p => p.HealthInfo)
-            .HasMaxLength(Pet.MAX_HEALTH_INFO_LENGTH)
+            .HasMaxLength(Constraints.MAX_HEALTH_INFO_LENGTH)
             .IsRequired();
         
         builder
             .Property(p => p.Location)
-            .HasMaxLength(Pet.MAX_LOCATION_LENGTH)
+            .HasMaxLength(Constraints.MAX_LOCATION_LENGTH)
             .IsRequired();
-        
-        builder
-            .Property(p => p.OwnersPhoneNumber)
-            .HasMaxLength(Pet.MAX_OWNERS_PHONE_NUMBER_LENGTH)
-            .IsRequired();
+
+        builder.ComplexProperty(p => p.OwnersPhoneNumber, b =>
+        {
+            b.IsRequired();
+            b.Property(p => p.Number).HasColumnName("owners_phone_number");
+        });
         
         builder
             .Property(p => p.Weight)
@@ -69,13 +71,13 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
             .Property(p => p.CreationDate)
             .IsRequired();
         
-        builder
-            .Property(p => p.HelpStatus)
-            .IsRequired();
+        builder.ComplexProperty(p => p.HelpStatus, b =>
+        {
+            b.IsRequired();
+            b.Property(p => p.Value).HasColumnName("help_status");
+        });
 
-        builder
-            .HasMany(p => p.Requisites)
-            .WithOne();
+        builder.OwnsMany(p => p.Requisites, b => b.ToJson());
         
         builder
             .HasMany(p => p.Photos)
