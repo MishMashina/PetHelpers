@@ -70,10 +70,14 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         builder
             .Property(p => p.CreationDate)
             .IsRequired();
+        
+        builder.ComplexProperty(p => p.HelpStatus, b =>
+        {
+            b.IsRequired();
+            b.Property(p => p.Value).HasColumnName("HelpStatus");
+        });
 
-        builder
-            .Property(p => p.HelpStatus)
-            .IsRequired();
+        builder.OwnsMany(p => p.Requisites, b => b.ToJson());
         
         builder
             .HasMany(p => p.Photos)

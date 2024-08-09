@@ -29,17 +29,6 @@ public class PetHelpersDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-        modelBuilder.Entity<Pet>()
-            .OwnsOne(p => p.OwnersPhoneNumber, b => b.ToJson()) 
-            .OwnsMany(p => p.Requisites, b => b.ToJson())
-            .OwnsOne(p => p.HelpStatus, b => b.ToJson());
-
-        modelBuilder.Entity<Volunteer>()
-            .OwnsOne(v => v.FullName, b => b.ToJson())
-            .OwnsMany(v => v.Requisites, b => b.ToJson())
-            .OwnsMany(v => v.SocialMedias, b => b.ToJson());
-
     }
 
     private ILoggerFactory CreateLoggerFactory() => 
