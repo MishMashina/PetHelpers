@@ -44,7 +44,7 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         builder.ComplexProperty(p => p.OwnersPhoneNumber, b =>
         {
             b.IsRequired();
-            b.Property(p => p.Number).HasColumnName("OwnersPhoneNumber");
+            b.Property(p => p.Number).HasColumnName("owners_phone_number");
         });
         
         builder
@@ -74,7 +74,7 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         builder.ComplexProperty(p => p.HelpStatus, b =>
         {
             b.IsRequired();
-            b.Property(p => p.Value).HasColumnName("HelpStatus");
+            b.Property(p => p.Value).HasColumnName("help_status");
         });
 
         builder.OwnsMany(p => p.Requisites, b => b.ToJson());
