@@ -4,9 +4,11 @@ namespace PetHelpers.Domain.Models;
 
 public class Pet : Entity<Guid>
 {
-    public string Name { get; }
+    public Guid SpeciesID { get; }
+
+    public string BreedName { get; set; }
     
-    public string Species { get; }
+    public string Name { get; }
     
     public string Description { get; }
     
