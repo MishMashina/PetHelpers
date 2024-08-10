@@ -1,23 +1,18 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace PetHelpers.Domain.Models;
+namespace PetHelpers.Domain.Models.Volunteer;
 
 public class Requisite : ValueObject
-{ 
-    public string Title { get; }
-    
-    public string Description { get; }
-
+{
     private Requisite(string title, string description)
     {
         Title = title;
         Description = description;
     }
-
-    private Requisite()
-    {
-    }
-
+    
+    public string Title { get; private set; }
+    public string Description { get; private set; }
+    
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {
         yield return Title;

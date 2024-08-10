@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PetHelpers.Domain.Constraints;
-using PetHelpers.Domain.Models;
+using PetHelpers.Domain.Models.Scepies;
+using PetHelpers.Domain.Models.Volunteer;
 
 namespace PetHelpers.Infrastructure.Configurations;
 

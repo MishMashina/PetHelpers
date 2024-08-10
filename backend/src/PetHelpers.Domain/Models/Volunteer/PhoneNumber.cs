@@ -1,15 +1,12 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace PetHelpers.Domain.Models;
+namespace PetHelpers.Domain.Models.Volunteer;
 
 public class PhoneNumber : ValueObject
 {
-    public string Number { get; }
-    
-    private PhoneNumber(string number)
-    {
-        Number = number;
-    }
+    private PhoneNumber(string number) => Number = number;
+
+    public string Number { get; private set;}
     
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {
