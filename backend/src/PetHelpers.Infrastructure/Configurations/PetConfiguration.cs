@@ -81,10 +81,6 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         });
 
         builder.OwnsMany(p => p.Requisites, b => b.ToJson());
-
-        builder
-            .HasOne<Species>()
-            .WithOne();
         
         builder
             .HasMany(p => p.Photos)

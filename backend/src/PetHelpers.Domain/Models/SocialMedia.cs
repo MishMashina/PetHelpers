@@ -14,6 +14,10 @@ public class SocialMedia : ValueObject
         Link = link;
     }
 
+    private SocialMedia()
+    {
+    }
+
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {
         yield return Title;

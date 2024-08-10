@@ -11,7 +11,7 @@ public class PetHelpersDbContext : DbContext
     private readonly IConfiguration _configuration;
 
     public DbSet<Volunteer> Volunteers { get; set; }
-    public DbSet<Volunteer> Species { get; set; }
+    public DbSet<Species> Species { get; set; }
     
     public PetHelpersDbContext(IConfiguration configuration)
     {
