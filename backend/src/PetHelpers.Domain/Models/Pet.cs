@@ -10,8 +10,6 @@ public class Pet : Entity<Guid>
     
     public string Name { get; }
     
-    public Species Species { get; }
-    
     public string Description { get; }
     
     public string Color { get; }
