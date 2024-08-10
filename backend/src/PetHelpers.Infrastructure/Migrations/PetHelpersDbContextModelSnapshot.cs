@@ -23,7 +23,7 @@ namespace PetHelpers.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.Breed", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Scepies.Breed", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,26 @@ namespace PetHelpers.Infrastructure.Migrations
                     b.ToTable("breed", (string)null);
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.Pet", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Scepies.Species", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("title");
+
+                    b.HasKey("Id")
+                        .HasName("pk_species");
+
+                    b.ToTable("species", (string)null);
+                });
+
+            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer.Pet", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +154,7 @@ namespace PetHelpers.Infrastructure.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("weight");
 
-                    b.ComplexProperty<Dictionary<string, object>>("HelpStatus", "PetHelpers.Domain.Models.Pet.HelpStatus#Status", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("HelpStatus", "PetHelpers.Domain.Models.Volunteer.Pet.HelpStatus#Status", b1 =>
                         {
                             b1.IsRequired();
 
@@ -145,7 +164,7 @@ namespace PetHelpers.Infrastructure.Migrations
                                 .HasColumnName("help_status");
                         });
 
-                    b.ComplexProperty<Dictionary<string, object>>("OwnersPhoneNumber", "PetHelpers.Domain.Models.Pet.OwnersPhoneNumber#PhoneNumber", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("OwnersPhoneNumber", "PetHelpers.Domain.Models.Volunteer.Pet.OwnersPhoneNumber#PhoneNumber", b1 =>
                         {
                             b1.IsRequired();
 
@@ -171,7 +190,7 @@ namespace PetHelpers.Infrastructure.Migrations
                     b.ToTable("pet", (string)null);
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.PetPhoto", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer.PetPhoto", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -201,26 +220,7 @@ namespace PetHelpers.Infrastructure.Migrations
                     b.ToTable("pet_photo", (string)null);
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.Species", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("title");
-
-                    b.HasKey("Id")
-                        .HasName("pk_species");
-
-                    b.ToTable("species", (string)null);
-                });
-
-            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer.Volunteer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,7 +249,7 @@ namespace PetHelpers.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("years_of_experience");
 
-                    b.ComplexProperty<Dictionary<string, object>>("FullName", "PetHelpers.Domain.Models.Volunteer.FullName#FullName", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("FullName", "PetHelpers.Domain.Models.Volunteer.Volunteer.FullName#FullName", b1 =>
                         {
                             b1.IsRequired();
 
@@ -266,7 +266,7 @@ namespace PetHelpers.Infrastructure.Migrations
                                 .HasColumnName("last_name");
                         });
 
-                    b.ComplexProperty<Dictionary<string, object>>("PhoneNumber", "PetHelpers.Domain.Models.Volunteer.PhoneNumber#PhoneNumber", b1 =>
+                    b.ComplexProperty<Dictionary<string, object>>("PhoneNumber", "PetHelpers.Domain.Models.Volunteer.Volunteer.PhoneNumber#PhoneNumber", b1 =>
                         {
                             b1.IsRequired();
 
@@ -283,39 +283,39 @@ namespace PetHelpers.Infrastructure.Migrations
                     b.ToTable("volunteers", (string)null);
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.Breed", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Scepies.Breed", b =>
                 {
-                    b.HasOne("PetHelpers.Domain.Models.Species", null)
+                    b.HasOne("PetHelpers.Domain.Models.Scepies.Species", null)
                         .WithMany("Breeds")
                         .HasForeignKey("SpeciesId")
                         .HasConstraintName("fk_breed_species_species_id");
 
-                    b.HasOne("PetHelpers.Domain.Models.Species", null)
+                    b.HasOne("PetHelpers.Domain.Models.Scepies.Species", null)
                         .WithMany()
                         .HasForeignKey("SpeciesId1")
                         .HasConstraintName("fk_breed_species_species_id1");
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.Pet", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer.Pet", b =>
                 {
-                    b.HasOne("PetHelpers.Domain.Models.Breed", null)
+                    b.HasOne("PetHelpers.Domain.Models.Scepies.Breed", null)
                         .WithMany()
                         .HasForeignKey("BreedId")
                         .HasConstraintName("fk_pet_breed_breed_id");
 
-                    b.HasOne("PetHelpers.Domain.Models.Species", null)
+                    b.HasOne("PetHelpers.Domain.Models.Scepies.Species", null)
                         .WithMany()
                         .HasForeignKey("SpeciesID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_pet_species_species_id");
 
-                    b.HasOne("PetHelpers.Domain.Models.Volunteer", null)
+                    b.HasOne("PetHelpers.Domain.Models.Volunteer.Volunteer", null)
                         .WithMany("OwnedPets")
                         .HasForeignKey("VolunteerId")
                         .HasConstraintName("fk_pet_volunteers_volunteer_id");
 
-                    b.OwnsMany("PetHelpers.Domain.Models.Requisite", "Requisites", b1 =>
+                    b.OwnsMany("PetHelpers.Domain.Models.Volunteer.Requisite", "Requisites", b1 =>
                         {
                             b1.Property<Guid>("PetId")
                                 .HasColumnType("uuid");
@@ -323,6 +323,14 @@ namespace PetHelpers.Infrastructure.Migrations
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("integer");
+
+                            b1.Property<string>("Description")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Title")
+                                .IsRequired()
+                                .HasColumnType("text");
 
                             b1.HasKey("PetId", "Id")
                                 .HasName("pk_pet");
@@ -339,17 +347,17 @@ namespace PetHelpers.Infrastructure.Migrations
                     b.Navigation("Requisites");
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.PetPhoto", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer.PetPhoto", b =>
                 {
-                    b.HasOne("PetHelpers.Domain.Models.Pet", null)
+                    b.HasOne("PetHelpers.Domain.Models.Volunteer.Pet", null)
                         .WithMany("Photos")
                         .HasForeignKey("PetId")
                         .HasConstraintName("fk_pet_photo_pet_pet_id");
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer.Volunteer", b =>
                 {
-                    b.OwnsMany("PetHelpers.Domain.Models.SocialMedia", "SocialMedias", b1 =>
+                    b.OwnsMany("PetHelpers.Domain.Models.Volunteer.SocialMedia", "SocialMedias", b1 =>
                         {
                             b1.Property<Guid>("VolunteerId")
                                 .HasColumnType("uuid");
@@ -357,6 +365,14 @@ namespace PetHelpers.Infrastructure.Migrations
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("integer");
+
+                            b1.Property<string>("Link")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Title")
+                                .IsRequired()
+                                .HasColumnType("text");
 
                             b1.HasKey("VolunteerId", "Id");
 
@@ -369,7 +385,7 @@ namespace PetHelpers.Infrastructure.Migrations
                                 .HasConstraintName("fk_volunteers_volunteers_volunteer_id");
                         });
 
-                    b.OwnsMany("PetHelpers.Domain.Models.Requisite", "Requisites", b1 =>
+                    b.OwnsMany("PetHelpers.Domain.Models.Volunteer.Requisite", "Requisites", b1 =>
                         {
                             b1.Property<Guid>("VolunteerId")
                                 .HasColumnType("uuid");
@@ -377,6 +393,14 @@ namespace PetHelpers.Infrastructure.Migrations
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("integer");
+
+                            b1.Property<string>("Description")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Title")
+                                .IsRequired()
+                                .HasColumnType("text");
 
                             b1.HasKey("VolunteerId", "Id");
 
@@ -394,17 +418,17 @@ namespace PetHelpers.Infrastructure.Migrations
                     b.Navigation("SocialMedias");
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.Pet", b =>
-                {
-                    b.Navigation("Photos");
-                });
-
-            modelBuilder.Entity("PetHelpers.Domain.Models.Species", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Scepies.Species", b =>
                 {
                     b.Navigation("Breeds");
                 });
 
-            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer", b =>
+            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer.Pet", b =>
+                {
+                    b.Navigation("Photos");
+                });
+
+            modelBuilder.Entity("PetHelpers.Domain.Models.Volunteer.Volunteer", b =>
                 {
                     b.Navigation("OwnedPets");
                 });

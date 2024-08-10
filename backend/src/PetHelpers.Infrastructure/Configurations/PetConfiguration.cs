@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PetHelpers.Domain.Constraints;
 using PetHelpers.Domain.Models;
+using PetHelpers.Domain.Models.Volunteer;
 
 namespace PetHelpers.Infrastructure.Configurations;
 
@@ -33,21 +34,13 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
 
         builder
             .Property(p => p.HealthInfo)
-            .HasMaxLength(Constraints.MAX_HEALTH_INFO_LENGTH)
+            .HasMaxLength(Constraints.MAX_DESCRIPTION_LENGTH)
             .IsRequired();
 
         builder
             .Property(p => p.Location)
             .HasMaxLength(Constraints.MAX_LOCATION_LENGTH)
             .IsRequired();
-
-        builder.ComplexProperty(p => p.OwnersPhoneNumber, b =>
-        {
-            b.IsRequired();
-            b.Property(p => p.Number)
-                .HasColumnName("owners_phone_number")
-                .HasMaxLength(Constraints.MAX_PHONE_NUMBER_LENGTH);
-        });
 
         builder
             .Property(p => p.Weight)
@@ -72,6 +65,14 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
         builder
             .Property(p => p.CreationDate)
             .IsRequired();
+        
+        builder.ComplexProperty(p => p.OwnersPhoneNumber, b =>
+        {
+            b.IsRequired();
+            b.Property(p => p.Number)
+                .HasColumnName("owners_phone_number")
+                .HasMaxLength(Constraints.MAX_PHONE_NUMBER_LENGTH);
+        });
 
         builder.ComplexProperty(p => p.HelpStatus, b =>
         {
@@ -80,10 +81,10 @@ public class PetConfiguration : IEntityTypeConfiguration<Pet>
                 .HasColumnName("help_status");
         });
 
-        builder.OwnsMany(p => p.Requisites, b => b.ToJson());
-        
         builder
             .HasMany(p => p.Photos)
             .WithOne();
+        
+        builder.OwnsMany(p => p.Requisites, b => b.ToJson());
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PetHelpers.Domain.Constraints;
 using PetHelpers.Domain.Models;
+using PetHelpers.Domain.Models.Volunteer;
 
 namespace PetHelpers.Infrastructure.Configurations;
 
@@ -11,22 +12,11 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
     {
         builder.HasKey(v => v.Id);
         
-        builder.ComplexProperty(p => p.FullName, b =>
-        {
-            b.IsRequired();
-            b.Property(p => p.FirstName)
-                .HasColumnName("first_name")
-                .HasMaxLength(Constraints.MAX_NAME_LENGTH);
-            b.Property(p => p.LastName)
-                .HasColumnName("last_name")
-                .HasMaxLength(Constraints.MAX_NAME_LENGTH);
-        });
-
         builder
             .Property(v => v.Description)
             .HasMaxLength(Constraints.MAX_DESCRIPTION_LENGTH)
             .IsRequired();
-        
+
         builder.ComplexProperty(p => p.PhoneNumber, b =>
         {
             b.IsRequired();
@@ -51,12 +41,23 @@ public class VolunteerConfiguration : IEntityTypeConfiguration<Volunteer>
             .Property(v => v.PetsInTreatment)
             .IsRequired();
 
-        builder.OwnsMany(v => v.Requisites, b => b.ToJson());
-        
-        builder.OwnsMany(v => v.SocialMedias, b => b.ToJson());
+        builder.ComplexProperty(p => p.FullName, b =>
+        {
+            b.IsRequired();
+            b.Property(p => p.FirstName)
+                .HasColumnName("first_name")
+                .HasMaxLength(Constraints.MAX_NAME_LENGTH);
+            b.Property(p => p.LastName)
+                .HasColumnName("last_name")
+                .HasMaxLength(Constraints.MAX_NAME_LENGTH);
+        });
         
         builder
             .HasMany(v => v.OwnedPets)
             .WithOne();
+        
+        builder.OwnsMany(v => v.Requisites, b => b.ToJson());
+                       
+        builder.OwnsMany(v => v.SocialMedias, b => b.ToJson());
     }
 }

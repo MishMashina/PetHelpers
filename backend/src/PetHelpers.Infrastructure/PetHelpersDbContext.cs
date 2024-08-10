@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PetHelpers.Domain.Models;
+using PetHelpers.Domain.Models.Scepies;
+using PetHelpers.Domain.Models.Volunteer;
 
 namespace PetHelpers.Infrastructure;
 

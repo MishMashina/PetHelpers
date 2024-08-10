@@ -1,22 +1,17 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace PetHelpers.Domain.Models;
+namespace PetHelpers.Domain.Models.Volunteer;
 
 public class SocialMedia : ValueObject
-{ 
-    public string Title { get; }
-    
-    public string Link { get; }
-
+{
     private SocialMedia(string title, string link)
     {
         Title = title;
         Link = link;
     }
-
-    private SocialMedia()
-    {
-    }
+    
+    public string Title { get; private set; }
+    public string Link { get; private set; }
 
     protected override IEnumerable<IComparable> GetEqualityComponents()
     {
