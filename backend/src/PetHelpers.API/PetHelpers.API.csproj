@@ -22,4 +22,8 @@
       <ProjectReference Include="..\PetHelpers.Infrastructure\PetHelpers.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
 </Project>
